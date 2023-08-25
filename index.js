@@ -73,6 +73,10 @@ const operationBtns = document.querySelectorAll('.operation');
 operationBtns.forEach(btn => {
     btn.addEventListener('click', () => {
         if(! firstOperation){
+            if(currentDisplay == 0 && operation == '/') {
+                devideByZero();
+                return;
+            }
             secondNum = currentDisplay;
             
             resultScreen.textContent = operate(firstNum, secondNum, operation);
@@ -90,14 +94,14 @@ operationBtns.forEach(btn => {
 
 const equalBtn = document.querySelector('.equal-btn');
 equalBtn.addEventListener('click', () => {
+    if(currentDisplay == 0 && operation == '/') {
+        devideByZero();
+        return;
+    }
     if(! firstOperation){
         if(changeSecondNum) {
             secondNum = currentDisplay;
             changeSecondNum = false;
-        }
-        if(secondNum == 0 && operation == '/') {
-            clear();
-            return;
         }
         resultScreen.textContent = operate(firstNum, secondNum, operation);
         currentDisplay = resultScreen.textContent;
@@ -107,7 +111,31 @@ equalBtn.addEventListener('click', () => {
     firstOperation = true;
 });
 
+const signBtn = document.querySelector('.sign');
+signBtn.addEventListener('click', () => {
+    if(currentDisplay[0] == '-'){
+        currentDisplay = currentDisplay.substring(1);
+    }
+    else {
+        currentDisplay = `-${currentDisplay}`;
+    }
+    resultScreen.textContent = currentDisplay;
+})
 
+const clearBtn = document.querySelector('.clear');
+clearBtn.addEventListener('click', clear);
 function clear(){
+    currentDisplay = 0;
+    resultScreen.textContent = currentDisplay;
+    operation = '';
+    firstNum = NaN;
+    secondNum = NaN;
+    erase = false;
+    firstOperation = true;
+    changeSecondNum = true;
+}
 
+function devideByZero() {
+    alert("Math Error! Can't devide by 0. Enter another number.");
+    erase = true;
 }
