@@ -38,7 +38,7 @@ function operate(a, b, o) {
 let operation = '';
 let firstNum = NaN;
 let secondNum = NaN;
-let currentDisplay = 0;
+let currentDisplay = '0';
 let erase = false;
 let firstOperation = true;
 let changeSecondNum = true;
@@ -56,6 +56,7 @@ digitBtns.forEach(digit => {
             resultScreen.textContent = '';
             currentDisplay = '';
             erase = false;
+            dotBtn.disabled = false;
         }
         
 
@@ -125,7 +126,7 @@ signBtn.addEventListener('click', () => {
 const clearBtn = document.querySelector('.clear');
 clearBtn.addEventListener('click', clear);
 function clear(){
-    currentDisplay = 0;
+    currentDisplay = '0';
     resultScreen.textContent = currentDisplay;
     operation = '';
     firstNum = NaN;
@@ -139,3 +140,30 @@ function devideByZero() {
     alert("Math Error! Can't devide by 0. Enter another number.");
     erase = true;
 }
+
+const backspaceBtn = document.querySelector('.backspace');
+backspaceBtn.addEventListener('click', () => {
+    console.log(currentDisplay.length);
+    switch (currentDisplay.length) {
+        case 0:
+            currentDisplay = '0';
+            break;
+        case 1:
+            currentDisplay = '0';
+            break;
+        default:
+            currentDisplay = currentDisplay.slice(0, -1);
+            break;
+    }
+    resultScreen.textContent = currentDisplay;
+})
+
+const dotBtn = document.querySelector('.dot');
+dotBtn.addEventListener('click', () => {
+    if(currentDisplay == ''){
+        currentDisplay = '0.';
+    }
+    else currentDisplay = `${currentDisplay}.`;
+    resultScreen.textContent = currentDisplay;
+    dotBtn.disabled = true;
+})
