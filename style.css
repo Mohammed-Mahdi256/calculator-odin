@@ -8,8 +8,8 @@ html, body {
 
 
 .calculator {
-    width: 400px;
-    height:700px;
+    width: 200px;
+    height:350px;
     background-color: rgb(118, 80, 84);
     display: flex;
     flex-direction: column;
