@@ -143,7 +143,6 @@ function devideByZero() {
 
 const backspaceBtn = document.querySelector('.backspace');
 backspaceBtn.addEventListener('click', () => {
-    console.log(currentDisplay.length);
     switch (currentDisplay.length) {
         case 0:
             currentDisplay = '0';
@@ -152,7 +151,7 @@ backspaceBtn.addEventListener('click', () => {
             currentDisplay = '0';
             break;
         default:
-            currentDisplay = currentDisplay.slice(0, -1);
+            currentDisplay = currentDisplay.slice(0, currentDisplay.length - 1);
             break;
     }
     resultScreen.textContent = currentDisplay;
@@ -166,4 +165,34 @@ dotBtn.addEventListener('click', () => {
     else currentDisplay = `${currentDisplay}.`;
     resultScreen.textContent = currentDisplay;
     dotBtn.disabled = true;
+})
+
+
+
+
+window.addEventListener('keydown', (e) => {
+    console.log(e.key);
+    document.querySelectorAll('button').forEach(btn => {
+        if(btn.textContent.toLowerCase() == e.key){
+            btn.click();
+            return;
+        }
+    })
+    switch (e.key.toLowerCase()) {
+        case 'enter':
+            equalBtn.click();
+            break;
+            
+        case 'backspace':
+            backspaceBtn.click();
+            break;
+        
+        case 'c':
+            clearBtn.click();
+            break;
+
+        default:
+            break;
+        }
+                
 })
